@@ -45,7 +45,7 @@ export class Store {
       bounty: this.getMeta("bounty", null),
       sessionStartedAt: this.getMeta("sessionStartedAt", new Date().toISOString()),
       newThisSession: this.getMeta("newThisSession", []),
-      settings: { volume: 0.6, reduceMotion: false, ...this.getMeta("settings", {}) },
+      settings: { volume: 0.6, reduceMotion: false, soloMode: false, ...this.getMeta("settings", {}) },
     };
     this.putMeta("sessionStartedAt", this.meta.sessionStartedAt);
   }
@@ -124,6 +124,7 @@ export class Store {
     const s = this.meta.settings;
     if (typeof patch.volume === "number") s.volume = Math.min(1, Math.max(0, patch.volume));
     if (typeof patch.reduceMotion === "boolean") s.reduceMotion = patch.reduceMotion;
+    if (typeof patch.soloMode === "boolean") s.soloMode = patch.soloMode;
     this.putMeta("settings", s);
   }
   setBounty(slot) { this.meta.bounty = slot; this.putMeta("bounty", slot); }
